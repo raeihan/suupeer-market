@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+* {
+    font-family: "Funnel Display", sans-serif;
+}
+
+@layer components {
+    .navbar-active .hamburger div:first-child {
+    @apply rotate-45 translate-y-1.5;
+    }
+    .navbar-active .hamburger div:last-child {
+    @apply -rotate-45 -translate-y-1;
+    }
+    .navbar-active div:first-child div:first-child div:last-child{
+        @apply block lg:flex
+    }
+}

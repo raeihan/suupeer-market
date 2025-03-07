@@ -3,6 +3,7 @@ import { supabase } from "../SupaClient";
 
 export const useAuth = create((set, get) => ({
   user: null,
+  id: "",
   auth: false,
   full_name: "",
   username: "",
@@ -110,6 +111,7 @@ export const useAuth = create((set, get) => ({
       if (userData) {
         console.log("User Data Fetched:", userData);
         set({
+          id: userData.id,
           full_name: userData.full_name,
           email: userData.email,
           username: userData.username,

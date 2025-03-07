@@ -17,16 +17,21 @@ import UserRoute from "./auth/UserRoute";
 import Basket from "./pages/Basket";
 import { useBasket } from "./utils/store/useBasket";
 import UpdateProfile from "./pages/UpdateProfile";
+import HistoryPages from "./pages/HistoryPages";
 
 const App = () => {
-  const { fetchUser, loading } = useAuth();
+  const { fetchUser, loading, id } = useAuth();
 
   const {fetchBasket} = useBasket()
 
   useEffect(() => {
     fetchUser();
-    fetchBasket()
-  }, [fetchUser, fetchBasket]);
+  }, [fetchUser]);
+
+  useEffect(() => {
+    fetchBasket(id);
+  }, [fetchUser, id]);
+
 
   if (loading) {
     return (
@@ -46,6 +51,7 @@ const App = () => {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/counter" element={<CounterApp />} />
         <Route path="/basket" element={<Basket />} />
+        <Route path="/history" element={<HistoryPages />} />
         <Route element={<UserRoute />}>
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/registerpage" element={<RegisterPage />} />

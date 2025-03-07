@@ -3,6 +3,7 @@ import Header from "../components/tailus/Header";
 import Footer from "../components/tailus/Footer";
 import { motion } from "framer-motion";
 import FloatingButton from "../components/FloatingButton";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   const FADE_DOWN_ANIMATION_VARIANTS = {
@@ -11,6 +12,13 @@ const Contact = () => {
   };
   return (
     <>
+      <Helmet>
+        <title>Contact Us</title>
+        <meta name="description" content="This page contain all products" />
+        <meta name="keywords" content="Wonderful Shop" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+      </Helmet>
       <Header />
       <div className="min-h-screen flex flex-col pt-10 bg-white dark:bg-gray-800 max-lg:pt-24">
         <motion.div
@@ -67,7 +75,6 @@ const Contact = () => {
           allowFullScreen="true"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          
         ></iframe>
         <FloatingButton />
         <Footer />

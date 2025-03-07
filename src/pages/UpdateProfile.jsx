@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useAuth } from "../utils/store/useAuth";
 import Header from "../components/tailus/Header";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const UpdateProfile = () => {
-  const { full_name, email, username, avatar_url, user, updateProfile } = useAuth();
+  const { full_name, email, username, avatar_url, user, updateProfile } =
+    useAuth();
   const [name, setName] = useState(full_name);
   const [newEmail, setNewEmail] = useState(email);
   const [newUsername, setNewUsername] = useState(username);
@@ -18,7 +20,13 @@ const UpdateProfile = () => {
       alert("User not found!");
       return;
     }
-    const success = await updateProfile(user.id, name, newEmail, newUsername, avatar);
+    const success = await updateProfile(
+      user.id,
+      name,
+      newEmail,
+      newUsername,
+      avatar
+    );
     if (success) {
       alert("Profile Updated Successfully!");
       navigate("/profilepage");
@@ -37,6 +45,13 @@ const UpdateProfile = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Update Profile</title>
+        <meta name="description" content="This page contain all products" />
+        <meta name="keywords" content="Wonderful Shop" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+      </Helmet>
       <Header />
       <div className="min-h-screen bg-gradient-to-br bg-zinc-300 flex flex-col items-center py-12 px-4">
         <button
@@ -46,11 +61,20 @@ const UpdateProfile = () => {
           <h2>{"< -"}</h2>
         </button>
         <div className="bg-white shadow-lg rounded-2xl w-11/12 sm:w-3/4 lg:w-1/2 p-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Update Profile</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            Update Profile
+          </h2>
           <div className="flex flex-col items-center">
             <div className="w-28 h-28 rounded-full bg-gray-300 overflow-hidden shadow-md mb-4 border-4 border-yellow-500">
-              <a href="#" onClick={() => document.getElementById('avatarInput').click()}>
-                <img src={avatar} alt="Profile" className="w-full h-full object-cover" />
+              <a
+                href="#"
+                onClick={() => document.getElementById("avatarInput").click()}
+              >
+                <img
+                  src={avatar}
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
               </a>
             </div>
             <input

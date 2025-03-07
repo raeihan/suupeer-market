@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { supabase } from "../utils/SupaClient";
 import { motion } from "framer-motion";
 import FloatingButton from "../components/FloatingButton";
+import { Helmet } from "react-helmet-async";
 
 const ProductPage = () => {
   const [category, setCategory] = useState([]);
@@ -17,7 +18,7 @@ const ProductPage = () => {
   const productsPerPage = 8;
   const navigate = useNavigate();
   const [selectParams, setSelectParams] = useSearchParams();
-  
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchProduct, setSearchProduct] = useState(
     searchParams.get("search") || ""
@@ -64,7 +65,14 @@ const ProductPage = () => {
   });
 
   const { data: products, isLoading: isLoadingProducts } = useQuery({
-    queryKey: ["products", sortBy, category, searchQuery, currentPage, paramsData.search],
+    queryKey: [
+      "products",
+      sortBy,
+      category,
+      searchQuery,
+      currentPage,
+      paramsData.search,
+    ],
     queryFn: async () => {
       const from = (currentPage - 1) * productsPerPage;
       const to = from + productsPerPage - 1;
@@ -112,60 +120,69 @@ const ProductPage = () => {
     hidden: { opacity: 0, y: -10 },
     show: { opacity: 1, y: 0, transition: { type: "spring" } },
   };
-
+  console.log(products?.length);
   return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      viewport={{ once: true }}
-      variants={{
-        hidden: {},
-        show: {
-          transition: {
-            staggerChildren: 0.15,
+    <>
+      <Helmet>
+        <title>{`Product Pages - ${products?.length}`}</title>
+        <meta name="description" content="This page contain all products" />
+        <meta name="keywords" content="Wonderful Shop" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+      </Helmet>
+      <motion.div
+        initial="hidden"
+        animate="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.15,
+            },
           },
-        },
-      }}
-      className="bg-gray-50 dark:bg-gray-900 max-lg:pt-24"
-    >
-      <Header />
-      <main className="m-4 flex flex-col">
-        <div className="flex flex-col lg:flex-row gap-4">
-          <Sidebar setSortBy={setSortBy} setCategory={setCategory} />
-          <AllProduct
+        }}
+        className="bg-gray-50 dark:bg-gray-900 max-lg:pt-24"
+      >
+        <Header />
+        <main className="m-4 flex flex-col">
+          <div className="flex flex-col lg:flex-row gap-4">
+            <Sidebar setSortBy={setSortBy} setCategory={setCategory} />
+            <AllProduct
               products={products}
               onProductClick={handleProductClick}
               setSearchProduct={setSearchProduct}
               setSearch={searchProduct}
               isLoading={isLoading}
             />
-        </div>
-        <motion.div
-          className="flex justify-center items-center my-4 gap-2"
-          variants={FADE_DOWN_ANIMATION_VARIANTS}
-        >
-          <button
-            className="btn btn-outline mx-1"
-            disabled={currentPage === 1 || isLoadingProducts}
-            onClick={() => setCurrentPage((prev) => prev - 1)}
+          </div>
+          <motion.div
+            className="flex justify-center items-center my-4 gap-2"
+            variants={FADE_DOWN_ANIMATION_VARIANTS}
           >
-            {"<"}
-          </button>
-          <span className="mx-2 items-center text-sm md:text-base">
-            {currentPage} of {totalPages}
-          </span>
-          <button
-            className="btn btn-outline mx-1"
-            disabled={currentPage === totalPages || isLoadingProducts}
-            onClick={() => setCurrentPage((prev) => prev + 1)}
-          >
-            {">"}
-          </button>
-        </motion.div>
-      </main>
-      <FloatingButton />
-      <Footer />
-    </motion.div>
+            <button
+              className="btn btn-outline mx-1"
+              disabled={currentPage === 1 || isLoadingProducts}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              {"<"}
+            </button>
+            <span className="mx-2 items-center text-sm md:text-base">
+              {currentPage} of {totalPages}
+            </span>
+            <button
+              className="btn btn-outline mx-1"
+              disabled={currentPage === totalPages || isLoadingProducts}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              {">"}
+            </button>
+          </motion.div>
+        </main>
+        <FloatingButton />
+        <Footer />
+      </motion.div>
+    </>
   );
 };
 

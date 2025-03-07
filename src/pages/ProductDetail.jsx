@@ -5,6 +5,7 @@ import { supabase } from "../utils/SupaClient";
 import Header from "../components/tailus/Header";
 import Footer from "../components/tailus/Footer";
 import FloatingButton from "../components/FloatingButton";
+import { Helmet } from "react-helmet-async";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -39,10 +40,17 @@ const ProductDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Suupeer!-{product.product_name}</title>
+        <meta name="description" content="This page contain all products" />
+        <meta name="keywords" content="Wonderful Shop" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+      </Helmet>
       <Header />
       <div className="container mx-auto p-10">
         <button className="btn btn-outline mb-6" onClick={() => navigate(-1)}>
-            <h2>{'<'}</h2>
+          <h2>{"<"}</h2>
         </button>
         <div className="flex flex-col md:flex-row items-start gap-6">
           <img
@@ -51,8 +59,12 @@ const ProductDetail = () => {
             className="w-64 h-64 object-cover"
           />
           <div>
-            <h1 className="text-3xl font-bold dark:text-white">{product.product_name}</h1>
-            <p className="text-xl text-gray-700 dark:text-white">Rp {product.price}</p>
+            <h1 className="text-3xl font-bold dark:text-white">
+              {product.product_name}
+            </h1>
+            <p className="text-xl text-gray-700 dark:text-white">
+              Rp {product.price}
+            </p>
             <p className="text-gray-600 mt-2 dark:text-white">
               <strong>Jenis:</strong> {product.product_style}
             </p>
@@ -69,7 +81,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <FloatingButton/>
+      <FloatingButton />
       <Footer />
     </>
   );

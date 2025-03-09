@@ -24,7 +24,7 @@ const Header = () => {
           <div className="xl:container m-auto px-6 md:px-12 w-full">
             <div className="w-full flex flex-wrap items-center justify-between gap-6 md:py-3 md:gap-0">
               <div className="w-full flex justify-between lg:w-auto">
-                <a href="#" aria-label="logo" className="flex space-x-2 items-center">
+                <a href="/" aria-label="logo" className="flex space-x-2 items-center">
                   <span className="text-base font-bold text-yellow-400">
                     Suupeer!
                     <span className="text-gray-900 dark:text-white"> Market</span>

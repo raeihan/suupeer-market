@@ -28,15 +28,12 @@ const RegisterPage = () => {
       alert("Berhasil terdaftar")
     } catch (error) {
       console.log(error);
-      
     }
-    
-
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+      <div className="w-full max-w-sm sm:max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-800">Register</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -98,11 +95,11 @@ const RegisterPage = () => {
             Register
           </button>
           <p className="mt-4 text-center">
-          Already have an account?{" "}
-          <a href="/loginpage" className="text-yellow-400 hover:underline">
-            Login
-          </a>
-        </p>
+            Already have an account?{" "}
+            <a href="/loginpage" className="text-yellow-400 hover:underline">
+              Login
+            </a>
+          </p>
         </form>
       </div>
     </div>

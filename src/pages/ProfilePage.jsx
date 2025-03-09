@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useAuth } from "../utils/store/useAuth";
+import { motion } from "framer-motion";
 import Header from "../components/tailus/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -17,6 +18,10 @@ const ProfilePage = () => {
   } = useAuth();
   const navigate = useNavigate();
   const fetchedRef = useRef(false);
+  const FADE_DOWN_ANIMATION_VARIANTS = {
+    hidden: { opacity: 0, y: -10 },
+    show: { opacity: 1, y: 0, transition: { type: "spring" } },
+  };
 
   useEffect(() => {
     if (!user && !fetchedRef.current) {
@@ -66,8 +71,24 @@ const ProfilePage = () => {
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
       </Helmet>
       <Header />
-      <div className="min-h-screen bg-gradient-to-br bg-zinc-300 dark:bg-zinc-800 flex flex-col items-center py-12 px-4 sm:px-8 lg:px-16">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white dark:bg-zinc-700 shadow-lg rounded-2xl max-w-lg sm:max-w-3xl w-full p-6 sm:p-8 lg:p-12 text-center sm:text-left relative">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.15,
+            },
+          },
+        }}
+        className="min-h-screen bg-gradient-to-br bg-zinc-300 dark:bg-zinc-800 flex flex-col items-center py-12 px-4 sm:px-8 lg:px-16 max-md:mt-10"
+      >
+        <motion.div
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white dark:bg-zinc-700 shadow-lg rounded-2xl max-w-lg sm:max-w-3xl w-full p-6 sm:p-8 lg:p-12 text-center sm:text-left relative"
+          variants={FADE_DOWN_ANIMATION_VARIANTS}
+        >
           <Link to="/history" className="self-end sm:self-start">
             <svg
               height="40"
@@ -100,7 +121,9 @@ const ProfilePage = () => {
             <p className="text-md sm:text-lg lg:text-xl text-gray-600 dark:text-white">
               {username || "No Username"}
             </p>
-            <p className="text-gray-500 text-sm sm:text-base dark:text-white">{email || "No Email"}</p>
+            <p className="text-gray-500 text-sm sm:text-base dark:text-white">
+              {email || "No Email"}
+            </p>
           </div>
           <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center sm:items-start gap-4 w-full sm:w-auto">
             <button
@@ -116,8 +139,8 @@ const ProfilePage = () => {
               Logout
             </button>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </>
   );
 };

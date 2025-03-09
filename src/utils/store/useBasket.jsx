@@ -143,9 +143,7 @@ export const useBasket = create((set, get) => ({
 
     const res = await fetch("https://midtrans-lyart.vercel.app/", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         order_id: orderId,
         gross_amount: totalAmount,
@@ -153,6 +151,22 @@ export const useBasket = create((set, get) => ({
         item_details: items,
       }),
     });
+    
+    if (!res.ok) {
+      console.error("Server error:", res.status, res.statusText);
+      return;
+    }
+    
+    const text = await res.text(); // Ambil response sebagai teks terlebih dahulu
+    console.log("Raw response:", text);
+    
+    try {
+      const { token } = JSON.parse(text);
+      console.log("Token received:", token);
+    } catch (error) {
+      console.error("JSON parsing error:", error);
+    }
+    
 
     const { token } = await res.json();
 

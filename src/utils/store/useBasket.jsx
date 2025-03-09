@@ -144,6 +144,7 @@ export const useBasket = create((set, get) => ({
     const res = await fetch("https://midtrans-lyart.vercel.app/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      mode: "cors",
       body: JSON.stringify({
         order_id: orderId,
         gross_amount: totalAmount,

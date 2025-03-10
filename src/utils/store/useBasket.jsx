@@ -89,7 +89,7 @@ export const useBasket = create((set, get) => ({
   },
   checkPaymentStatus: async (orderId) => {
     const res = await fetch(
-      `http://localhost:5000/api/payment/status/${orderId}`
+      `http://midtrans-lyart.vercel.app/api/payment/status/${orderId}`
     );
     const data = await res.json();
 
@@ -141,7 +141,7 @@ export const useBasket = create((set, get) => ({
     };
     
 
-    const res = await fetch("https://midtrans-lyart.vercel.app/", {
+    const res = await fetch("https://midtrans-lyart.vercel.app/api/payment/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       mode: "cors",
